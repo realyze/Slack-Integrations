@@ -12,7 +12,7 @@ Everytime someone sends a command /gifme, it sends a corresponding gif to a comm
 ```
 
 
-### Wheretoet
+### Wheretoeat
 ---
 #### What this does
 Everytime someone sends a command /wheretoeat, it tells you where to eat. 
