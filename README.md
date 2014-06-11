@@ -1,6 +1,6 @@
 #BraveUX Slack Integrations
 
-### gifme
+## gifme
 ---
 #### What this does
 Everytime someone sends a command /gifme, it sends a corresponding gif to a common slack channel. 
@@ -12,7 +12,7 @@ Everytime someone sends a command /gifme, it sends a corresponding gif to a comm
 ```
 
 
-### Wheretoeat
+## Wheretoeat
 ---
 #### What this does
 Everytime someone sends a command /wheretoeat, it tells you where to eat. 
@@ -22,7 +22,7 @@ Everytime someone sends a command /wheretoeat, it tells you where to eat.
 /wheretoeat 
 ```
 
-### helpme
+## helpme
 ---
 #### What this does
 Everytime someone sends a command /helpme, it sends the info above. 
