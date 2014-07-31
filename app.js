@@ -43,17 +43,7 @@ app.post('/gifme', function(req, res) {
   })
 })
 
-// Food Oracle
-app.post('/wheretoeat', function(req, res) {
-    res.send(restaurants[getRandomInt(0, restaurants.length)])
-})
-
-app.post('/helpme', function(req, res) {
-  var help = '/gifme keyword [-c "your caption"]\nreturns a gif with the keyword\n\n/wheretoeat \nreturns a place to eat'
-  res.send(help);
-})
-
 app.use(router)
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log('listining on port 3000')
 })
