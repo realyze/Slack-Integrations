@@ -43,7 +43,7 @@ app.get('/gifme', function(req, res) {
       if (err) {
         return res.send(err);
       } else {
-        res.send('Gif sent.');
+        res.send('Gif sent. POSTed ' + JSON.stringify(options));
       }
     })
   })
