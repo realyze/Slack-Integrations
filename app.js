@@ -33,7 +33,7 @@ app.get('/gifme', function(req, res) {
       method: "POST",
       json: {
         text: payload,
-        channel: '#' + b.channel_name,
+        channel: '#' + req.query.channel_name,
         username:"GiphyBot",
         icon_emoji:":cage:"
       }
