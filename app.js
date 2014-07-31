@@ -7,7 +7,6 @@ var router = express.Router()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-var keys = require('./keys')
 var restaurants = ['Shake Shack', 'Capriottis', 'Grill Fish', 'Chipotle', 'Qdoba', 'Taylor Gourmet', 'Chopt', 'District Taco', 'Pei Wei', 'McDonalds', 'Potbelly', 'Noodles and Company', 'Julies Empanadas', 'Bub & Pops', 'Sweetgreen', 'Moby Dick', 'Panera', 'Roti', 'Jimmy Johns']
 
 function getRandomInt(min, max) {
@@ -20,7 +19,7 @@ app.get('/gifme', function(req, res) {
   var text = req.query.text
   if (!text) {return res.send(500, 'missing tag');}
   // Get gifs from giphy 
-  request('http://api.giphy.com/v1/gifs/search?q='+ text + "&api_key=" + keys.gifme, function(err, response, body) {
+  request('http://api.giphy.com/v1/gifs/search?q='+ text + "&api_key=" + process.env.GIPHY_API_KEY, function(err, response, body) {
     if (err) { return res.send(500, err); }
     var b = JSON.parse(body);
     console.log(b);
