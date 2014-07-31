@@ -27,7 +27,7 @@ app.get('/gifme', function(req, res) {
     var payload;
     var obj = b.data[random];
 
-    payload = 'http://media.giphy.com/media/' + obj.id + 'giphy.gif'
+    payload = 'http://media.giphy.com/media/' + obj.id + '/giphy.gif'
     var options = {
       url: 'https://salsita.slack.com/services/hooks/incoming-webhook?token=' + process.env.SLACK_TOKEN,
       method: "POST",
