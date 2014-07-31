@@ -28,15 +28,15 @@ app.get('/gifme', function(req, res) {
         text: payload,
         channel: '#' + req.query.channel_name,
         username: req.query.user_name,
-        icon_emoji:":cage:"
+        icon_emoji: ":cage:"
       }
     }
     // Send gifs to slack channel
-    request(options, function(err) {
+    request(options, function(err, res, body) {
       if (err) {
         return res.send(err);
       } else {
-        res.send('Gif sent. POSTed ' + JSON.stringify(options));
+        res.send('Gif sent. POSTed ' + JSON.stringify(options) + '\n' + body);
       }
     })
   })
