@@ -15,35 +15,42 @@ function getRandomInt(min, max) {
 }
 
 // Gif Oracle
-app.post('/gifme', function(req, res) {
+app.get('/gifme', function(req, res) {
   // Get info from the post
-  var text = req.body.text.split('-c')
-  var gifQuery = text[0]
+  var text = req.query.text
+  if (!text) {return res.send(500, 'missing tag');}
   // Get gifs from giphy 
-  request('http://api.giphy.com/v1/gifs/search?q='+gifQuery+keys.gifme, function(err, response, body) {
-    if (err) res.send(err)
-    var b = JSON.parse(body), random = Math.floor(Math.random() * (b.data.length - 1)) + 0
+  request('http://api.giphy.com/v1/gifs/search?q='+ text + "&api_key=" + keys.gifme, function(err, response, body) {
+    if (err) { return res.send(500, err); }
+    var b = JSON.parse(body);
+    console.log(b);
+    var random = Math.floor(Math.random() * (b.data.length - 1)) + 0
     var payload;
-    var url = b.data[random].url
-      , user = req.body.user_name
-      , caption = text[1]
-      , gifTitle = text[0];
-    if (caption) payload ="Title: "+ gifTitle +'\nSent By '+ user + "\n~'"+caption+"'\n<"+url+">" ;
-    else if (!caption) payload = "Title: "+ gifTitle +'\nSent By '+ user + "\n<"+url+">" ;
+    var obj = b.data[random];
+
+    payload = 'http://media.giphy.com/media/' + obj.id + 'giphy.gif'
     var options = {
-      url: 'Your web hook integration url token here',
+      url: 'https://salsita.slack.com/services/hooks/incoming-webhook?token=' + process.env.SLACK_TOKEN,
       method: "POST",
-      json: {"text":payload, "username":"the bot name", "icon_emoji":":an emoji:"}
+      json: {
+        text: payload,
+        channel: '#' + b.channel_name,
+        username:"GiphyBot",
+        icon_emoji:":cage:"
+      }
     }
     // Send gifs to slack channel
     request(options, function(err) {
-      if (err) res.send(err);
+      if (err) {
+        return res.send(err);
+      } else {
+        res.send('Gif sent.');
+      }
     })
-    res.send('Gif sent.')
   })
 })
 
 app.use(router)
 app.listen(process.env.PORT || 3000, function() {
-  console.log('listining on port 3000')
+  console.log('app listening');
 })
