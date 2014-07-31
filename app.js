@@ -7,13 +7,6 @@ var router = express.Router()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-var restaurants = ['Shake Shack', 'Capriottis', 'Grill Fish', 'Chipotle', 'Qdoba', 'Taylor Gourmet', 'Chopt', 'District Taco', 'Pei Wei', 'McDonalds', 'Potbelly', 'Noodles and Company', 'Julies Empanadas', 'Bub & Pops', 'Sweetgreen', 'Moby Dick', 'Panera', 'Roti', 'Jimmy Johns']
-
-function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Gif Oracle
 app.get('/gifme', function(req, res) {
   // Get info from the post
   var text = req.query.text
@@ -34,7 +27,7 @@ app.get('/gifme', function(req, res) {
       json: {
         text: payload,
         channel: '#' + req.query.channel_name,
-        username:"GiphyBot",
+        username: req.query.user_name,
         icon_emoji:":cage:"
       }
     }
