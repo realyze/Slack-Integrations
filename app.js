@@ -32,11 +32,11 @@ app.get('/gifme', function(req, res) {
       }
     }
     // Send gifs to slack channel
-    request(options, function(err, res, body) {
+    request(options, function(err) {
       if (err) {
         return res.send(err);
       } else {
-        res.send('Gif sent. POSTed ' + JSON.stringify(options) + '\n' + body);
+        res.send('Gif sent. POSTed ' + JSON.stringify(options));
       }
     })
   })
