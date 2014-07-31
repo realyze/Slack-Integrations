@@ -27,7 +27,7 @@ app.get('/gifme', function(req, res) {
       json: {
         text: payload,
         channel: '#' + req.query.channel_name,
-        username: req.query.user_name,
+        username: req.query.user_name + "gifsson",
         icon_emoji: ":cage:"
       }
     }
