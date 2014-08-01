@@ -20,15 +20,15 @@ app.get('/gifme', function(req, res) {
       "&api_key=" + process.env.GIPHY_API_KEY, function(err, response, body) {
     if (err) { return res.send(500, err); }
 
-    if (_.isEmpty(data)) {
-      res.send(200, "No image for " + tag + "found");
-      return;
-    }
-
     console.log('Giphy returned', body);
 
     var b = JSON.parse(body);
     var obj = b.data
+
+    if (_.isEmpty(obj)) {
+      res.send(200, "No image for " + tag + "found");
+      return;
+    }
 
     var username;
     if (req.query.user_name.match(/.+ová$/)) {
