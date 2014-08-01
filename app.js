@@ -9,24 +9,22 @@ app.use(bodyParser.urlencoded());
 
 app.get('/gifme', function(req, res) {
   // Get info from the post
-  var text = req.query.text
-  if (!text) {return res.send(500, 'missing tag');}
+  var tag = req.query.text
+  if (!tag) {return res.send(500, 'missing tag');}
 
   // Get gifs from giphy 
-  request('http://api.giphy.com/v1/gifs/random?tag=' + text + 
+  request('http://api.giphy.com/v1/gifs/random?tag=' + tag + 
       "&api_key=" + process.env.GIPHY_API_KEY, function(err, response, body) {
     if (err) { return res.send(500, err); }
     var b = JSON.parse(body);
     var random = Math.floor(Math.random() * (b.data.length - 1)) + 0
-    var payload;
     var obj = b.data[random];
 
-    payload = 'http://media.giphy.com/media/' + obj.id + '/giphy.gif'
     var options = {
       url: 'https://salsita.slack.com/services/hooks/incoming-webhook?token=' + process.env.SLACK_TOKEN,
       method: "POST",
       json: {
-        text: payload,
+        text: tag + '\nhttp://media.giphy.com/media/' + obj.id + '/giphy.gif'
         channel: '#' + req.query.channel_name,
         username: req.query.user_name + "gifsson",
         icon_emoji: ":cage:"
