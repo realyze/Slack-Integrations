@@ -17,8 +17,7 @@ app.get('/gifme', function(req, res) {
       "&api_key=" + process.env.GIPHY_API_KEY, function(err, response, body) {
     if (err) { return res.send(500, err); }
     var b = JSON.parse(body);
-    var random = Math.floor(Math.random() * (b.data.length - 1)) + 0
-    var obj = b.data[random];
+    var obj = b.data
 
     var options = {
       url: 'https://salsita.slack.com/services/hooks/incoming-webhook?token=' + process.env.SLACK_TOKEN,
