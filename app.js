@@ -24,7 +24,7 @@ app.get('/gifme', function(req, res) {
       url: 'https://salsita.slack.com/services/hooks/incoming-webhook?token=' + process.env.SLACK_TOKEN,
       method: "POST",
       json: {
-        text: tag + '\nhttp://media.giphy.com/media/' + obj.id + '/giphy.gif'
+        text: tag + '\nhttp://media.giphy.com/media/' + obj.id + '/giphy.gif',
         channel: '#' + req.query.channel_name,
         username: req.query.user_name + "gifsson",
         icon_emoji: ":cage:"
