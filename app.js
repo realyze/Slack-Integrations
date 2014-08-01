@@ -19,13 +19,20 @@ app.get('/gifme', function(req, res) {
     var b = JSON.parse(body);
     var obj = b.data
 
+    var username;
+    if (req.query.user_name.match(/.+ová$/)) {
+      username = req.query.user_name.replace('ová', "gifsdóttir");
+    } else {
+      username = req.query.user_name + "gifsson";
+    }
+
     var options = {
       url: 'https://salsita.slack.com/services/hooks/incoming-webhook?token=' + process.env.SLACK_TOKEN,
       method: "POST",
       json: {
         text: 'http://media.giphy.com/media/' + obj.id + '/giphy.gif',
         channel: '#' + req.query.channel_name,
-        username: req.query.user_name + "gifsson says \"" + tag + "\"",
+        username: username + " says \"" + tag + "\"",
         icon_emoji: ":cage:"
       }
     }
