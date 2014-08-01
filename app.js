@@ -12,10 +12,15 @@ app.get('/gifme', function(req, res) {
   var tag = req.query.text
   if (!tag) {return res.send(500, 'missing tag');}
 
+  console.log('Geting the GIF from Giphy API...');
+
   // Get gifs from giphy 
   request('http://api.giphy.com/v1/gifs/random?tag=' + tag + 
       "&api_key=" + process.env.GIPHY_API_KEY, function(err, response, body) {
     if (err) { return res.send(500, err); }
+
+    console.log('Giphy returned', body);
+
     var b = JSON.parse(body);
     var obj = b.data
 
@@ -36,6 +41,9 @@ app.get('/gifme', function(req, res) {
         icon_emoji: ":cage:"
       }
     }
+
+    console.log('POSTing to slack', options);
+
     // Send gifs to slack channel
     request(options, function(err) {
       if (err) {
