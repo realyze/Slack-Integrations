@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 var router = express.Router()
+var _ = require('underscore');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -18,6 +19,11 @@ app.get('/gifme', function(req, res) {
   request('http://api.giphy.com/v1/gifs/random?tag=' + tag + 
       "&api_key=" + process.env.GIPHY_API_KEY, function(err, response, body) {
     if (err) { return res.send(500, err); }
+
+    if (_.isEmpty(data)) {
+      res.send(200, "No image for " + tag + "found");
+      return;
+    }
 
     console.log('Giphy returned', body);
 
